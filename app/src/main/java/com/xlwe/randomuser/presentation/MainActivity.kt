@@ -1,7 +1,8 @@
-package com.xlwe.randomuser
+package com.xlwe.randomuser.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.xlwe.randomuser.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
