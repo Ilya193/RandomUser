@@ -1,6 +1,7 @@
 package com.xlwe.randomuser.data.repositories
 
 import android.util.Log
+import com.xlwe.randomuser.data.database.UserDao
 import com.xlwe.randomuser.data.mapper.UserMapper
 import com.xlwe.randomuser.data.network.ApiRequests
 import com.xlwe.randomuser.domain.repositories.UserRepository
@@ -15,6 +16,7 @@ import kotlin.coroutines.CoroutineContext
 class UserRepositoryImpl @Inject constructor(
     private val apiRequests: ApiRequests,
     private val mapper: UserMapper,
+    private val userDao: UserDao,
     private val coroutineContext: CoroutineContext
 ) : UserRepository {
     override fun getUser(): Flow<NetworkResult> = flow {

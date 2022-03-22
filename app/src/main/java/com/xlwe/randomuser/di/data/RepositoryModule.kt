@@ -1,5 +1,6 @@
 package com.xlwe.randomuser.di.data
 
+import com.xlwe.randomuser.data.database.UserDao
 import com.xlwe.randomuser.data.mapper.UserMapper
 import com.xlwe.randomuser.data.network.ApiRequests
 import com.xlwe.randomuser.data.repositories.UserRepositoryImpl
@@ -27,8 +28,9 @@ class RepositoryModule {
     fun provideUserRepository(
         apiRequests: ApiRequests,
         userMapper: UserMapper,
+        userDao: UserDao,
         coroutineContext: CoroutineContext
     ): UserRepository =
-        UserRepositoryImpl(apiRequests, userMapper, coroutineContext)
+        UserRepositoryImpl(apiRequests, userMapper, userDao, coroutineContext)
 
 }
