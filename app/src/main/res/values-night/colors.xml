@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background">#191919</color>
+    <color name="colorClick">#39B1F5</color>
 </resources>
