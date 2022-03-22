@@ -8,6 +8,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -18,10 +20,15 @@ class RepositoryModule {
         UserMapper()
 
     @Provides
+    fun provideCoroutineContext(): CoroutineContext =
+        Dispatchers.IO
+
+    @Provides
     fun provideUserRepository(
         apiRequests: ApiRequests,
-        userMapper: UserMapper
+        userMapper: UserMapper,
+        coroutineContext: CoroutineContext
     ): UserRepository =
-        UserRepositoryImpl(apiRequests, userMapper)
+        UserRepositoryImpl(apiRequests, userMapper, coroutineContext)
 
 }
