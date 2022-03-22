@@ -25,11 +25,16 @@ class MainViewModel @Inject constructor(
     val phone = MutableLiveData("")
 
     init {
-        Log.d("attadag", "CREATE")
         viewModelScope.launch {
             getUserUseCase.getUser().collect {
                 _user.postValue(it)
             }
+        }
+    }
+
+    fun update() = viewModelScope.launch {
+        getUserUseCase.getUser().collect {
+            _user.postValue(it)
         }
     }
 

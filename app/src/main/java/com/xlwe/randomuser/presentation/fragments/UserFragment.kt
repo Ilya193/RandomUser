@@ -48,6 +48,10 @@ class UserFragment : Fragment() {
 
         observeViewModel()
         setClickListener()
+
+        binding.swipeRefresh.setOnRefreshListener {
+            mainViewModel.update()
+        }
     }
 
     private fun setClickListener() {
@@ -65,6 +69,8 @@ class UserFragment : Fragment() {
 
     private fun observeViewModel() {
         mainViewModel.user.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = false
+
             when (it) {
                 is NetworkResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
