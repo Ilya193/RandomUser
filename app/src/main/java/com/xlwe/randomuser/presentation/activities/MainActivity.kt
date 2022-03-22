@@ -1,4 +1,4 @@
-package com.xlwe.randomuser.presentation
+package com.xlwe.randomuser.presentation.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
