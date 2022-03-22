@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), OnClick {
             startActivity(intent)
         }
         else {
-            Snackbar.make(binding.root, R.string.no_apps_phone, Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.root, R.string.no_apps_maps, Snackbar.LENGTH_SHORT).show()
         }
     }
 }
