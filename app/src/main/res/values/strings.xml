@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RandomUser</string>
+    <string name="no_connection">Нет подключения к интернету</string>
+    <string name="service_unavailable">Ошибка при получении данных</string>
+    <string name="phone">Phone:</string>
+    <string name="location">Location:</string>
 </resources>

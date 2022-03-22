@@ -1,5 +1,6 @@
 package com.xlwe.randomuser.data.repositories
 
+import android.util.Log
 import com.xlwe.randomuser.data.mapper.UserMapper
 import com.xlwe.randomuser.data.network.ApiRequests
 import com.xlwe.randomuser.domain.repositories.UserRepository

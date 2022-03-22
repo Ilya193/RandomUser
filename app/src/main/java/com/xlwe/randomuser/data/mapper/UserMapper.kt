@@ -1,5 +1,6 @@
 package com.xlwe.randomuser.data.mapper
 
+import android.util.Log
 import com.xlwe.randomuser.data.network.model.UserDTO
 import com.xlwe.randomuser.domain.models.*
 
@@ -23,7 +24,7 @@ class UserMapper {
 
             val tempId = Id(
                 name = it.id.name,
-                value = it.id.value
+                value = it.id.value ?: ""
             )
 
             val tempLocation = Location(
