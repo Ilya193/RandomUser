@@ -4,4 +4,6 @@
     <string name="service_unavailable">Ошибка при получении данных</string>
     <string name="phone">Phone:</string>
     <string name="location">Location:</string>
+    <string name="no_apps_phone">Нет приложений для открытия номера телефона</string>
+    <string name="no_apps_maps">Нет приложений для открытия карты</string>
 </resources>
