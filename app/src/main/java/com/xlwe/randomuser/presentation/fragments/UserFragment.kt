@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.xlwe.randomuser.R
 import com.xlwe.randomuser.databinding.FragmentUserBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserFragment : Fragment() {
     private var _binding: FragmentUserBinding? = null
     private val binding: FragmentUserBinding
