@@ -20,7 +20,6 @@ class UserRepositoryImpl @Inject constructor(
     private val coroutineContext: CoroutineContext
 ) : UserRepository {
 
-
     override fun getUser(): Flow<NetworkResult> = flow {
         try {
             val user = apiRequests.getUser()
@@ -44,6 +43,5 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun addUser(userDTO: UserDTO) {
         userDao.addUser(mapper.mapNetworkModelToDb(userDTO))
     }
-
 
 }

@@ -1,6 +1,5 @@
 package com.xlwe.randomuser.data.database.model
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

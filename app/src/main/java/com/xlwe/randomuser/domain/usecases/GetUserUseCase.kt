@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 class GetUserUseCase(
     private val userRepository: UserRepository
 ) {
-    fun getUser() : Flow<NetworkResult> {
+    fun getUser(): Flow<NetworkResult> {
         return userRepository.getUser()
     }
 }

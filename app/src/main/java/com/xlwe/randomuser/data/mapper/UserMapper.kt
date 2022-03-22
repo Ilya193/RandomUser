@@ -1,6 +1,5 @@
 package com.xlwe.randomuser.data.mapper
 
-import android.util.Log
 import com.xlwe.randomuser.data.database.model.UserItemDbModel
 import com.xlwe.randomuser.data.network.model.UserDTO
 import com.xlwe.randomuser.domain.models.*
@@ -10,7 +9,7 @@ class UserMapper {
     fun mapNetworkModelToEntity(userDTO: UserDTO): User {
         val entityInfo = Info(
             page = userDTO.info.page,
-            results =  userDTO.info.results,
+            results = userDTO.info.results,
             seed = userDTO.info.seed,
             version = userDTO.info.version
         )
@@ -20,7 +19,7 @@ class UserMapper {
         userDTO.results.forEach {
             val tempDob = Dob(
                 age = it.dob.age,
-                date =  it.dob.date
+                date = it.dob.date
             )
 
             val tempId = Id(
@@ -74,20 +73,22 @@ class UserMapper {
                 date = it.registered.date,
             )
 
-            entityResult.add(Result(
-                cell = it.cell,
-                dob = tempDob,
-                email = it.email,
-                gender = it.gender,
-                id = tempId,
-                location = tempLocation,
-                login = tempLogin,
-                name = tempName,
-                nat = it.nat,
-                phone = it.phone,
-                picture = tempPicture,
-                registered = tempRegistered
-            ))
+            entityResult.add(
+                Result(
+                    cell = it.cell,
+                    dob = tempDob,
+                    email = it.email,
+                    gender = it.gender,
+                    id = tempId,
+                    location = tempLocation,
+                    login = tempLogin,
+                    name = tempName,
+                    nat = it.nat,
+                    phone = it.phone,
+                    picture = tempPicture,
+                    registered = tempRegistered
+                )
+            )
         }
 
         return User(
