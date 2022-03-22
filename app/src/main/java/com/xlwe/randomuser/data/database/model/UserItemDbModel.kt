@@ -1,19 +1,19 @@
 package com.xlwe.randomuser.data.database.model
 
+import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_items")
 data class UserItemDbModel(
-    val cell: String,
-    val dob: Dob,
-    val email: String,
-    val gender: String,
-    val id: Id,
-    val location: Location,
-    val login: Login,
-    val name: Name,
-    val nat: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val name: String,
+    val dob: String,
     val phone: String,
-    val picture: Picture,
-    val registered: Registered
+    val country: String,
+    val city: String,
+    val state: String,
+    val latitude: String,
+    val longitude: String
 )
