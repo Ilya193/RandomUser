@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-const val url = "https://newsapi.org/v2/"
+const val url = "https://randomuser.me/"
 
 @Module
 @InstallIn(SingletonComponent::class)
