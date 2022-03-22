@@ -1,8 +1,9 @@
 package com.xlwe.randomuser.data.repositories
 
-import android.util.Log
+import com.xlwe.randomuser.data.database.UserDao
 import com.xlwe.randomuser.data.mapper.UserMapper
 import com.xlwe.randomuser.data.network.ApiRequests
+import com.xlwe.randomuser.data.network.model.UserDTO
 import com.xlwe.randomuser.domain.repositories.UserRepository
 import com.xlwe.randomuser.domain.result.NetworkResult
 import com.xlwe.randomuser.domain.result.Status
@@ -15,13 +16,17 @@ import kotlin.coroutines.CoroutineContext
 class UserRepositoryImpl @Inject constructor(
     private val apiRequests: ApiRequests,
     private val mapper: UserMapper,
+    private val userDao: UserDao,
     private val coroutineContext: CoroutineContext
 ) : UserRepository {
+
+
     override fun getUser(): Flow<NetworkResult> = flow {
         try {
             val user = apiRequests.getUser()
             if (user.isSuccessful) {
                 if (user.body() != null) {
+                    addUser(user.body()!!)
                     emit(NetworkResult.Success(mapper.mapNetworkModelToEntity(user.body()!!)))
                 }
                 else {
@@ -35,4 +40,10 @@ class UserRepositoryImpl @Inject constructor(
             emit(NetworkResult.Error(Status.NO_CONNECTION))
         }
     }.flowOn(coroutineContext)
+
+    override suspend fun addUser(userDTO: UserDTO) {
+        userDao.addUser(mapper.mapNetworkModelToDb(userDTO))
+    }
+
+
 }

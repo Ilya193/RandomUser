@@ -1,6 +1,7 @@
 package com.xlwe.randomuser.data.mapper
 
 import android.util.Log
+import com.xlwe.randomuser.data.database.model.UserItemDbModel
 import com.xlwe.randomuser.data.network.model.UserDTO
 import com.xlwe.randomuser.domain.models.*
 
@@ -92,6 +93,21 @@ class UserMapper {
         return User(
             info = entityInfo,
             results = entityResult
+        )
+    }
+
+    fun mapNetworkModelToDb(userDTO: UserDTO): UserItemDbModel {
+        val userData = userDTO.results[0]
+        return UserItemDbModel(
+            name = userData.name.title + userData.name.first + userData.name.last,
+            dob = userData.dob.date,
+            age = userData.dob.age,
+            phone = userData.phone,
+            country = userData.location.country,
+            city = userData.location.city,
+            state = userData.location.state,
+            latitude = userData.location.coordinates.latitude,
+            longitude = userData.location.coordinates.longitude,
         )
     }
 
