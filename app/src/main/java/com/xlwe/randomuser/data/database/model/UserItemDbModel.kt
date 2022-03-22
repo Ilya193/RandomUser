@@ -10,6 +10,7 @@ data class UserItemDbModel(
     val id: Int = 0,
     val name: String,
     val dob: String,
+    val age: Int,
     val phone: String,
     val country: String,
     val city: String,
