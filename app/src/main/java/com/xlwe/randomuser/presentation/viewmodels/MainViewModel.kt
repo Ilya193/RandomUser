@@ -1,5 +1,6 @@
 package com.xlwe.randomuser.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +22,10 @@ class MainViewModel @Inject constructor(
     val user: LiveData<NetworkResult>
         get() = _user
 
+    val phone = MutableLiveData("")
+
     init {
+        Log.d("attadag", "CREATE")
         viewModelScope.launch {
             getUserUseCase.getUser().collect {
                 _user.postValue(it)
