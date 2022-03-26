@@ -7,10 +7,13 @@ import androidx.room.PrimaryKey
 data class UserItemDbModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val name: String,
+    val title: String,
+    val first: String,
+    val last: String,
     val dob: String,
     val age: Int,
     val phone: String,
+    val picture: String,
     val country: String,
     val city: String,
     val state: String,
