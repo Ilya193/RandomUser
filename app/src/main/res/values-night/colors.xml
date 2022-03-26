@@ -10,4 +10,8 @@
 
     <color name="background">#191919</color>
     <color name="colorClick">#39B1F5</color>
+
+    <color name="colorPrimary">#347EEA</color>
+
+    <color name="border">#5F6368</color>
 </resources>

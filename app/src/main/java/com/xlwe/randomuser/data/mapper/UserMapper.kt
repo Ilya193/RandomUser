@@ -97,18 +97,112 @@ class UserMapper {
         )
     }
 
-    fun mapNetworkModelToDb(userDTO: UserDTO): UserItemDbModel {
-        val userData = userDTO.results[0]
+    fun mapNetworkModelToDb(user: User): UserItemDbModel {
+        val userData = user.results[0]
         return UserItemDbModel(
-            name = userData.name.title + userData.name.first + userData.name.last,
+            title = userData.name.title,
+            first = userData.name.first,
+            last = userData.name.last,
             dob = userData.dob.date,
             age = userData.dob.age,
             phone = userData.phone,
             country = userData.location.country,
             city = userData.location.city,
             state = userData.location.state,
+            picture = userData.picture.large,
             latitude = userData.location.coordinates.latitude,
             longitude = userData.location.coordinates.longitude,
+        )
+    }
+
+    fun mapDbModelToEntity(userItemDbModel: List<UserItemDbModel>): User {
+        val entityInfo = Info(
+            page = 0,
+            results = 0,
+            seed = "",
+            version = ""
+        )
+
+        val entityResult = mutableListOf<Result>()
+
+        userItemDbModel.forEach {
+            val tempDob = Dob(
+                age = it.age,
+                date = it.dob
+            )
+
+            val tempId = Id(
+                name = "",
+                value = ""
+            )
+
+            val tempLocation = Location(
+                city = it.city,
+                coordinates = Coordinates(
+                    latitude = it.latitude,
+                    longitude = it.longitude
+                ),
+                country = it.country,
+                postcode = "",
+                state = it.state,
+                street = Street(
+                    name = "",
+                    number = 0
+                ),
+                timezone = Timezone(
+                    description = "",
+                    offset = ""
+                )
+            )
+
+            val tempLogin = Login(
+                md5 = "",
+                password = "",
+                salt = "",
+                sha1 = "",
+                sha256 = "",
+                username = "",
+                uuid = "",
+            )
+
+            val tempName = Name(
+                first = it.first,
+                last = it.last,
+                title = it.title,
+            )
+
+            val tempPicture = Picture(
+                large = it.picture,
+                medium = "",
+                thumbnail = ""
+            )
+
+            val tempRegistered = Registered(
+                age = 0,
+                date = "",
+            )
+
+            entityResult.add(
+                Result(
+                    cell = "",
+                    dob = tempDob,
+                    email = "",
+                    gender = "",
+                    id = tempId,
+                    location = tempLocation,
+                    login = tempLogin,
+                    name = tempName,
+                    nat = "",
+                    phone = it.phone,
+                    picture = tempPicture,
+                    registered = tempRegistered
+                )
+            )
+        }
+
+        return User(
+            info = entityInfo,
+            results = entityResult
         )
     }
 
