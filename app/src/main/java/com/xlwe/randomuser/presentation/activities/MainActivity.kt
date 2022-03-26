@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity(), OnClick {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:$latitude, $longitude"))
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
+        }
         else {
             Snackbar.make(binding.root, R.string.no_apps_maps, Snackbar.LENGTH_SHORT).show()
         }

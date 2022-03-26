@@ -2,7 +2,6 @@ package com.xlwe.randomuser.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.xlwe.randomuser.databinding.FragmentFavoriteUsersBinding
 import com.xlwe.randomuser.domain.models.Result
-import com.xlwe.randomuser.domain.models.User
 import com.xlwe.randomuser.domain.result.NetworkResult
-import com.xlwe.randomuser.presentation.Constants
 import com.xlwe.randomuser.presentation.OnClick
 import com.xlwe.randomuser.presentation.adapters.UsersAdapter
 import com.xlwe.randomuser.presentation.viewmodels.MainViewModel
@@ -58,7 +55,6 @@ class FavoriteUsersFragment : Fragment(), OnClick {
 
                     result.result!!.results.forEach {
                         mainListUser.add(it)
-                        Log.d("attadag", "${it.name.first}")
                     }
 
                     usersAdapter.submitList(mainListUser.toList())
