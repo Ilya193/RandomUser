@@ -113,13 +113,20 @@ class UserFragment : Fragment() {
         }
 
         mainViewModel.noConnection.observe(viewLifecycleOwner) {
-            hide()
-            Snackbar.make(binding.root, R.string.no_connection, Snackbar.LENGTH_SHORT).show()
+            if (it == Constants.NO_CONNECTION) {
+                hide()
+                Snackbar.make(binding.root, R.string.no_connection, Snackbar.LENGTH_SHORT).show()
+                mainViewModel.setConnectionError()
+            }
         }
 
         mainViewModel.serviceUnavailable.observe(viewLifecycleOwner) {
-            hide()
-            Snackbar.make(binding.root, R.string.service_unavailable, Snackbar.LENGTH_SHORT).show()
+            if (it == Constants.SERVICE_UNAVAILABLE) {
+                hide()
+                Snackbar.make(binding.root, R.string.service_unavailable, Snackbar.LENGTH_SHORT)
+                    .show()
+                mainViewModel.setServiceUnavailableError()
+            }
         }
     }
 

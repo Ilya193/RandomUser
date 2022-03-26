@@ -7,5 +7,7 @@ class Constants {
         const val START_SUBSTRING = 0
         const val END_SUBSTRING = 10
         const val GET_INDEX_LAST_ELEMENT = 1
+        const val NO_CONNECTION = "NO_CONNECTION"
+        const val SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE"
     }
 }

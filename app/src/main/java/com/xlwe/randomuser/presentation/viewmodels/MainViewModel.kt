@@ -81,16 +81,16 @@ class MainViewModel @Inject constructor(
     val coordinates: LiveData<String>
         get() = _coordinates
 
-    private val _noConnection: MutableLiveData<Unit> =
+    private val _noConnection: MutableLiveData<String> =
         MutableLiveData()
 
-    val noConnection: LiveData<Unit>
+    val noConnection: LiveData<String>
         get() = _noConnection
 
-    private val _serviceUnavailable: MutableLiveData<Unit> =
+    private val _serviceUnavailable: MutableLiveData<String> =
         MutableLiveData()
 
-    val serviceUnavailable: LiveData<Unit>
+    val serviceUnavailable: LiveData<String>
         get() = _serviceUnavailable
 
     init {
@@ -145,9 +145,9 @@ class MainViewModel @Inject constructor(
                     }
                     is NetworkResult.Error -> {
                         if (it.status == Status.NO_CONNECTION) {
-                            _noConnection.postValue(Unit)
+                            _noConnection.postValue(Constants.NO_CONNECTION)
                         } else {
-                            _serviceUnavailable.postValue(Unit)
+                            _serviceUnavailable.postValue(Constants.SERVICE_UNAVAILABLE)
                         }
                     }
                 }
@@ -157,6 +157,14 @@ class MainViewModel @Inject constructor(
                 _userDB.postValue(it)
             }
         }
+    }
+
+    fun setConnectionError() {
+        _noConnection.value = ""
+    }
+
+    fun setServiceUnavailableError() {
+        _serviceUnavailable.value = ""
     }
 
 }
