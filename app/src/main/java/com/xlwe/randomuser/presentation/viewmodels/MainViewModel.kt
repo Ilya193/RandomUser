@@ -38,7 +38,6 @@ class MainViewModel @Inject constructor(
             }
 
             getUsersUseCase.getUsers().collect {
-                Log.d("attadag", "${it.result!!.results}")
                 _userDB.postValue(it)
             }
         }
