@@ -2,6 +2,7 @@ package com.xlwe.randomuser.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,72 +69,63 @@ class UserFragment : Fragment() {
     private var longitude = ""
 
     private fun observeViewModel() {
-        mainViewModel.user.observe(viewLifecycleOwner) {
-            binding.swipeRefresh.isRefreshing = false
-
-            when (it) {
-                is NetworkResult.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is NetworkResult.Success -> {
-                    binding.progressBar.visibility = View.GONE
-
-                    it.result?.apply {
-                        val res = results[Constants.INDEX]
-
-                        Glide.with(binding.picture)
-                            .load(res.picture.large)
-                            .transform(CenterCrop(), RoundedCorners(Constants.RADIUS))
-                            .into(binding.picture)
-
-                        val fullName =
-                            res.name.title + " " + res.name.first + " " + res.name.last
-
-                        binding.name.text = fullName
-
-                        val date = res.dob.date.substring(
-                            Constants.START_SUBSTRING,
-                            Constants.END_SUBSTRING
-                        ).replace("-", ".").split(".").asReversed()
-
-                        var fullDate = ""
-
-                        for (d in date.indices) {
-                            if (d != date.size - Constants.GET_INDEX_LAST_ELEMENT)
-                                fullDate += date[d] + "."
-                            else
-                                fullDate += date[d]
-                        }
-
-                        binding.date.text = fullDate
-
-                        binding.phone.visibility = View.VISIBLE
-                        binding.phoneTV.text = res.phone
-
-                        binding.location.visibility = View.VISIBLE
-                        binding.country.text = res.location.country
-                        binding.city.text = res.location.city
-                        binding.state.text = res.location.state
-
-                        latitude = res.location.coordinates.latitude
-                        longitude = res.location.coordinates.longitude
-                        binding.coordinates.text = latitude + " " + longitude
-                    }
-                }
-                is NetworkResult.Error -> {
-                    if (it.status == Status.NO_CONNECTION)
-                        Snackbar.make(binding.root, R.string.no_connection, Snackbar.LENGTH_SHORT)
-                            .show()
-                    else
-                        Snackbar.make(
-                            binding.root,
-                            R.string.service_unavailable,
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    binding.progressBar.visibility = View.GONE
-                }
-            }
+        mainViewModel.networkLoading.observe(viewLifecycleOwner) {
+            binding.progressBar.visibility = View.VISIBLE
         }
+
+        mainViewModel.picture.observe(viewLifecycleOwner) {
+            hide()
+
+            Glide.with(binding.picture)
+                .load(it)
+                .transform(CenterCrop(), RoundedCorners(Constants.RADIUS))
+                .into(binding.picture)
+        }
+
+        mainViewModel.fullName.observe(viewLifecycleOwner) {
+            binding.name.text = it
+        }
+
+        mainViewModel.dob.observe(viewLifecycleOwner) {
+            binding.date.text = it
+        }
+
+        mainViewModel.phone.observe(viewLifecycleOwner) {
+            binding.phone.visibility = View.VISIBLE
+            binding.phoneTV.text = it
+        }
+
+        mainViewModel.country.observe(viewLifecycleOwner) {
+            binding.location.visibility = View.VISIBLE
+            binding.country.text = it
+        }
+
+        mainViewModel.city.observe(viewLifecycleOwner) {
+            binding.city.text = it
+        }
+
+        mainViewModel.state.observe(viewLifecycleOwner) {
+            binding.state.text = it
+        }
+
+        mainViewModel.coordinates.observe(viewLifecycleOwner) {
+            binding.coordinates.text = it
+        }
+
+        mainViewModel.noConnection.observe(viewLifecycleOwner) {
+            hide()
+            Snackbar.make(binding.root, R.string.no_connection, Snackbar.LENGTH_SHORT).show()
+        }
+
+        mainViewModel.serviceUnavailable.observe(viewLifecycleOwner) {
+            hide()
+            Snackbar.make(binding.root, R.string.service_unavailable, Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun hide() {
+        binding.swipeRefresh.isRefreshing = false
+        binding.progressBar.visibility = View.GONE
     }
 
     override fun onDestroyView() {
