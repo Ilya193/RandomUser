@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.xlwe.randomuser.domain.models.Result
 import com.xlwe.randomuser.domain.result.NetworkResult
 import com.xlwe.randomuser.domain.result.Status
 import com.xlwe.randomuser.domain.usecases.GetUserUseCase
@@ -21,11 +22,17 @@ class MainViewModel @Inject constructor(
     private val getUsersUseCase: GetUsersUseCase
 ) : ViewModel() {
 
-    private val _userDB: MutableLiveData<NetworkResult> =
-        MutableLiveData(NetworkResult.Loading())
+    private val _userDB: MutableLiveData<List<Result>> =
+        MutableLiveData()
 
-    val userDB: LiveData<NetworkResult>
+    val userDB: LiveData<List<Result>>
         get() = _userDB
+
+    private val _databaseLoading: MutableLiveData<Unit> =
+        MutableLiveData(Unit)
+
+    val databaseLoading: LiveData<Unit>
+        get() = _databaseLoading
 
     private val _networkLoading: MutableLiveData<Unit> =
         MutableLiveData(Unit)
@@ -95,6 +102,15 @@ class MainViewModel @Inject constructor(
 
     init {
         getData()
+        viewModelScope.launch {
+            getUsersUseCase.getUsers().collect {
+                when (it) {
+                    is NetworkResult.Success -> {
+                        _userDB.postValue(it.result!!.results)
+                    }
+                }
+            }
+        }
     }
 
     fun update() = viewModelScope.launch {
@@ -151,10 +167,6 @@ class MainViewModel @Inject constructor(
                         }
                     }
                 }
-            }
-
-            getUsersUseCase.getUsers().collect {
-                _userDB.postValue(it)
             }
         }
     }

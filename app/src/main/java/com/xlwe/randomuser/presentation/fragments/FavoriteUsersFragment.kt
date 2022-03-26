@@ -47,20 +47,19 @@ class FavoriteUsersFragment : Fragment(), OnClick {
     }
 
     private fun observeViewModel() {
-        mainViewModel.userDB.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is NetworkResult.Loading -> {}
-                is NetworkResult.Success -> {
-                    mainListUser.clear()
+        mainViewModel.databaseLoading.observe(viewLifecycleOwner) {
+            binding.progressBar.visibility = View.VISIBLE
+        }
 
-                    result.result!!.results.forEach {
-                        mainListUser.add(it)
-                    }
+        mainViewModel.userDB.observe(viewLifecycleOwner) {
+            binding.progressBar.visibility = View.GONE
 
-                    usersAdapter.submitList(mainListUser.toList())
-                }
-                is NetworkResult.Error -> {}
+            mainListUser.clear()
+            it.forEach {
+                mainListUser.add(it)
             }
+
+            usersAdapter.submitList(mainListUser.toList())
         }
     }
 
