@@ -1,12 +1,11 @@
 package com.xlwe.randomuser.presentation.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xlwe.randomuser.domain.models.Result
-import com.xlwe.randomuser.domain.result.NetworkResult
+import com.xlwe.randomuser.domain.result.Response
 import com.xlwe.randomuser.domain.result.Status
 import com.xlwe.randomuser.domain.usecases.GetUserUseCase
 import com.xlwe.randomuser.domain.usecases.GetUsersUseCase
@@ -105,7 +104,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             getUsersUseCase.getUsers().collect {
                 when (it) {
-                    is NetworkResult.Success -> {
+                    is Response.Success -> {
                         _userDB.postValue(it.result!!.results)
                     }
                 }
@@ -121,10 +120,10 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             getUserUseCase.getUser().collect {
                 when (it) {
-                    is NetworkResult.Loading -> {
+                    is Response.Loading -> {
                         _networkLoading.postValue(Unit)
                     }
-                    is NetworkResult.Success -> {
+                    is Response.Success -> {
                         it.result?.apply {
                             val res = results[Constants.INDEX]
 
@@ -159,7 +158,7 @@ class MainViewModel @Inject constructor(
                             _coordinates.postValue(res.location.coordinates.latitude + " " + res.location.coordinates.longitude)
                         }
                     }
-                    is NetworkResult.Error -> {
+                    is Response.Error -> {
                         if (it.status == Status.NO_CONNECTION) {
                             _noConnection.postValue(Constants.NO_CONNECTION)
                         } else {

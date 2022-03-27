@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.xlwe.randomuser.databinding.FragmentFavoriteUsersBinding
 import com.xlwe.randomuser.domain.models.Result
-import com.xlwe.randomuser.domain.result.NetworkResult
 import com.xlwe.randomuser.presentation.OnClick
 import com.xlwe.randomuser.presentation.adapters.UsersAdapter
 import com.xlwe.randomuser.presentation.viewmodels.MainViewModel

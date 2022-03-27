@@ -2,7 +2,6 @@ package com.xlwe.randomuser.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.snackbar.Snackbar
 import com.xlwe.randomuser.R
 import com.xlwe.randomuser.databinding.FragmentUserBinding
-import com.xlwe.randomuser.domain.result.NetworkResult
-import com.xlwe.randomuser.domain.result.Status
 import com.xlwe.randomuser.presentation.Constants
 import com.xlwe.randomuser.presentation.OnClick
 import com.xlwe.randomuser.presentation.viewmodels.MainViewModel

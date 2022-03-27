@@ -5,7 +5,7 @@ import com.xlwe.randomuser.data.datasource.RemoteDataSource
 import com.xlwe.randomuser.data.mapper.UserMapper
 import com.xlwe.randomuser.domain.models.User
 import com.xlwe.randomuser.domain.repositories.UserRepository
-import com.xlwe.randomuser.domain.result.NetworkResult
+import com.xlwe.randomuser.domain.result.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -19,13 +19,13 @@ class UserRepositoryImpl @Inject constructor(
     private val coroutineContext: CoroutineContext
 ) : UserRepository {
 
-    override fun getUser(): Flow<NetworkResult> = flow {
+    override fun getUser(): Flow<Response> = flow {
         val result = remoteDataSource.getUser()
         emit(result)
         result.result?.let { addUser(it) }
     }.flowOn(coroutineContext)
 
-    override fun getUsers(): Flow<NetworkResult> = flow {
+    override fun getUsers(): Flow<Response> = flow {
         localDataSource.getUsers().collect {
             emit(it)
         }
