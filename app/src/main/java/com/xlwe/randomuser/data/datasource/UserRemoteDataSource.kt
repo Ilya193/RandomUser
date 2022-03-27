@@ -2,6 +2,7 @@ package com.xlwe.randomuser.data.datasource
 
 import com.xlwe.randomuser.data.mapper.UserMapper
 import com.xlwe.randomuser.data.network.ApiRequests
+import com.xlwe.randomuser.domain.models.User
 import com.xlwe.randomuser.domain.result.Response
 import com.xlwe.randomuser.domain.result.Status
 import javax.inject.Inject
@@ -10,7 +11,7 @@ class UserRemoteDataSource @Inject constructor(
     private val apiRequests: ApiRequests,
     private val mapper: UserMapper
 ) : RemoteDataSource {
-    override suspend fun getUser(): Response {
+    override suspend fun getUser(): Response<User> {
         return try {
             val user = apiRequests.getUser()
             if (user.body() != null) {

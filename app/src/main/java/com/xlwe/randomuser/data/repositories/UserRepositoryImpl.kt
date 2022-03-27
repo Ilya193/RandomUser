@@ -19,13 +19,13 @@ class UserRepositoryImpl @Inject constructor(
     private val coroutineContext: CoroutineContext
 ) : UserRepository {
 
-    override fun getUser(): Flow<Response> = flow {
+    override fun getUser(): Flow<Response<User>> = flow {
         val result = remoteDataSource.getUser()
         emit(result)
         result.result?.let { addUser(it) }
     }.flowOn(coroutineContext)
 
-    override fun getUsers(): Flow<Response> = flow {
+    override fun getUsers(): Flow<Response<User>> = flow {
         localDataSource.getUsers().collect {
             emit(it)
         }

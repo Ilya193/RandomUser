@@ -1,12 +1,10 @@
 package com.xlwe.randomuser.domain.result
 
-import com.xlwe.randomuser.domain.models.User
-
-sealed class Response(
-    val result: User? = null,
+sealed class Response<T>(
+    val result: T? = null,
     val status: Status? = null
 ) {
-    class Loading : Response()
-    class Success(val user: User) : Response(result = user)
-    class Error(val s: Status) : Response(status = s)
+    class Loading<T> : Response<T>()
+    class Success<T>(data: T) : Response<T>(result = data)
+    class Error<T>(s: Status) : Response<T>(status = s)
 }
