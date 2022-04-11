@@ -4,9 +4,9 @@ import com.xlwe.randomuser.data.database.model.UserItemDbModel
 import com.xlwe.randomuser.data.network.model.UserDTO
 import com.xlwe.randomuser.domain.models.*
 
-class UserMapper {
+class UserMapper : Mapper {
 
-    fun mapNetworkModelToEntity(userDTO: UserDTO): User {
+    override fun mapNetworkModelToEntity(userDTO: UserDTO): User {
         val entityInfo = Info(
             page = userDTO.info.page,
             results = userDTO.info.results,
@@ -97,7 +97,7 @@ class UserMapper {
         )
     }
 
-    fun mapNetworkModelToDb(user: User): UserItemDbModel {
+    override fun mapNetworkModelToDb(user: User): UserItemDbModel {
         val userData = user.results[0]
         return UserItemDbModel(
             title = userData.name.title,
@@ -115,7 +115,7 @@ class UserMapper {
         )
     }
 
-    fun mapDbModelToEntity(userItemDbModel: List<UserItemDbModel>): User {
+    override fun mapDbModelToEntity(userItemDbModel: List<UserItemDbModel>): User {
         val entityInfo = Info(
             page = 0,
             results = 0,

@@ -9,8 +9,7 @@ class GetUsersUseCase(
     private val userRepository: UserRepository
 ) {
 
-    fun getUsers(): Flow<Response<User>> {
-        return userRepository.getUsers()
-    }
+    operator fun invoke(): Flow<Response<User>> =
+        userRepository.getUsers()
 
 }

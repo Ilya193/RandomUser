@@ -102,7 +102,7 @@ class MainViewModel @Inject constructor(
     init {
         getData()
         viewModelScope.launch {
-            getUsersUseCase.getUsers().collect {
+            getUsersUseCase().collect {
                 when (it) {
                     is Response.Success -> {
                         _userDB.postValue(it.result!!.results)
@@ -118,7 +118,7 @@ class MainViewModel @Inject constructor(
 
     private fun getData() {
         viewModelScope.launch {
-            getUserUseCase.getUser().collect {
+            getUserUseCase().collect {
                 when (it) {
                     is Response.Loading -> {
                         _networkLoading.postValue(Unit)
